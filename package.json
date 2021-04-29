@@ -56,16 +56,16 @@
     "is_js": "^0.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.51",
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "coveralls": "^3.0.2",
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "nyc": "^13.1.0",
-    "request": "^2.54.0",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "coveralls-next": "^4.0.0",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "got": "^11.8.2",
+    "nyc": "^15.1.0",
     "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "tape": "^5.2.2"
   }
 }

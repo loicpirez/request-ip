@@ -1,8 +1,8 @@
 const http = require('http');
 const request = require('request');
-const requestIp = require('../src/index.js');
 const tapSpec = require('tap-spec');
 const test = require('tape');
+const requestIp = require('../src/index.js');
 
 test.createStream().pipe(tapSpec()).pipe(process.stdout);
 
@@ -34,7 +34,7 @@ test('req.headers is undefined', (t) => {
     server.on('listening', () => {
         // we can't make the request URL until we get the port number from the new server
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 t.equal(found, '127.0.0.1');
                 server.close();
@@ -67,7 +67,7 @@ test('x-client-ip', (t) => {
     server.on('listening', () => {
         // we can't make the request URL until we get the port number from the new server
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers['x-client-ip'], found);
@@ -94,7 +94,7 @@ test('fastly-client-ip', (t) => {
     server.on('listening', () => {
         // we can't make the request URL until we get the port number from the new server
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers['fastly-client-ip'], found);
@@ -118,7 +118,7 @@ test('x-forwarded-for', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 const firstIp = options.headers['x-forwarded-for'].split(',')[0].trim();
@@ -143,7 +143,7 @@ test('x-forwarded-for with unknown first ip', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 const secondIp = options.headers['x-forwarded-for'].split(',')[1].trim();
@@ -168,7 +168,7 @@ test('x-forwarded-for with ipv4:port', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 const firstIp = options.headers['x-forwarded-for'].split(',')[0].trim().split(':')[0];
@@ -191,7 +191,7 @@ test('cf-connecting-ip', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 t.equal(options.headers['cf-connecting-ip'], found);
                 server.close();
@@ -212,7 +212,7 @@ test('true-client-ip', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 t.equal(options.headers['true-client-ip'], found);
                 server.close();
@@ -235,7 +235,7 @@ test('x-real-ip', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers['x-real-ip'], found);
@@ -259,7 +259,7 @@ test('x-cluster-client-ip', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers['x-cluster-client-ip'], found);
@@ -283,7 +283,7 @@ test('x-forwarded', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers['x-forwarded'], found);
@@ -307,7 +307,7 @@ test('forwarded-for', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers['forwarded-for'], found);
@@ -331,7 +331,7 @@ test('forwarded', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // make sure response ip is the same as the one we passed in
                 t.equal(options.headers.forwarded, found);
@@ -350,7 +350,7 @@ test('req.connection.remoteAddress', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 t.equal(found, serverInfo.host);
                 server.close();
@@ -368,7 +368,7 @@ test('req.connection.socket.remoteAddress', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // ip address should be equal to the server host we used at the top
                 t.equal(found, serverInfo.host);
@@ -510,7 +510,7 @@ test('android request to AWS EBS app (x-forwarded-for)', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // ip address should be equal to the first "x-forwarded-for" value
                 t.equal(found, wanted);
@@ -535,7 +535,7 @@ test('request to Google Cloud App Engine (x-appengine-user-ip)', (t) => {
     server.listen(0, serverInfo.host);
     server.on('listening', () => {
         options.url = `http://${serverInfo.host}:${server.address().port}`;
-        request(options, (error, response, found) => {
+        got.stream(options, (error, response, found) => {
             if (!error && response.statusCode === 200) {
                 // ip address should be equal to the first "x-appengine-user-ip" value
                 t.equal(found, wanted);
