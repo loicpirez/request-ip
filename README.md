@@ -4,15 +4,15 @@ A tiny Node.js module for retrieving a request's IP address.
 
 ![](https://nodei.co/npm/request-ip.png?downloads=true&cacheBust=2)
 
-![](https://travis-ci.org/pbojinov/request-ip.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/pbojinov/request-ip/badge.svg)](https://coveralls.io/r/pbojinov/request-ip)
+![](https://travis-ci.org/loicpirez/request-ip.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/loicpirez/request-ip/badge.svg)](https://coveralls.io/r/loicpirez/request-ip)
 ![](https://img.shields.io/npm/l/express.svg)
 [![npm version](https://badge.fury.io/js/request-ip.svg)](https://badge.fury.io/js/request-ip)
 
 ## Installation
 
 ```bash
-npm install request-ip --save
+npm install @loicpirez/request-ip --save
 ```
     
 ## Getting Started
@@ -42,7 +42,7 @@ app.use(function(req, res) {
 });
 ```
 
-To see a full working code for the middleware, check out the [examples](https://github.com/pbojinov/request-ip/tree/master/examples) folder.
+To see a full working code for the middleware, check out the [examples](https://github.com/loicpirez/request-ip/tree/master/examples) folder.
 
 The connect-middleware also supports retrieving the ip address under a custom attribute name, which also works as a container for any future settings. 
 
@@ -88,7 +88,7 @@ npm test
 
 ## Release Notes
 
-See the wonderful [changelog](https://github.com/pbojinov/request-ip/blob/master/CHANGELOG.md)
+See the wonderful [changelog](https://github.com/loicpirez/request-ip/blob/master/CHANGELOG.md)
 
 To easily generate a new changelog, install [github-changelog-generator](https://github.com/skywinder/github-changelog-generator) then run `npm run changelog`.
 
